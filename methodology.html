@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hand Tracking Methodology Flow Chart</title>
+    <link rel="stylesheet" href="methodology.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Hand Tracking & Gesture Recognition Methodology</h1>
+        
+        <div class="flowchart">
+            <!-- Start -->
+            <div class="step start">
+                <div class="step-content">
+                    <h3>Start</h3>
+                    <p>Initialize Application</p>
+                </div>
+            </div>
+            
+            <div class="arrow">↓</div>
+            
+            <!-- Camera Setup -->
+            <div class="step process">
+                <div class="step-content">
+                    <h3>Camera Setup</h3>
+                    <p>Initialize webcam feed<br>
+                    Set resolution: window dimensions<br>
+                    Configure MediaPipe Hands</p>
+                </div>
+            </div>
+            
+            <div class="arrow">↓</div>
+            
+            <!-- Video Processing -->
+            <div class="step process">
+                <div class="step-content">
+                    <h3>Video Frame Processing</h3>
+                    <p>Capture video frame<br>
+                    Send to MediaPipe Hands model<br>
+                    Extract hand landmarks</p>
+                </div>
+            </div>
+            
+            <div class="arrow">↓</div>
+            
+            <!-- Hand Detection -->
+            <div class="step decision">
+                <div class="step-content">
+                    <h3>Hand Detected?</h3>
+                    <p>Check if hand landmarks<br>are available</p>
+                </div>
+            </div>
+            
+            <div class="branch-container">
+                <div class="branch left">
+                    <div class="arrow-branch">No →</div>
+                    <div class="step process">
+                        <div class="step-content">
+                            <h3>Clear Canvas</h3>
+                            <p>Clear drawing overlay<br>
+                            Show video feed only</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="branch right">
+                    <div class="arrow-branch">Yes →</div>
+                    <div class="step process">
+                        <div class="step-content">
+                            <h3>Extract Key Points</h3>
+                            <p>Index finger tip (landmark 8)<br>
+                            Middle finger tip (landmark 12)<br>
+                            Ring finger tip (landmark 16)<br>
+                            Pinky tip (landmark 20)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="arrow">↓</div>
+            
+            <!-- Gesture Recognition -->
+            <div class="step process">
+                <div class="step-content">
+                    <h3>Gesture Recognition</h3>
+                    <p>Analyze finger positions<br>
+                    Calculate relative coordinates<br>
+                    Apply Z-depth correction</p>
+                </div>
+            </div>
+            
+            <div class="arrow">↓</div>
+            
+            <!-- Drawing Mode Check -->
+            <div class="step decision">
+                <div class="step-content">
+                    <h3>Drawing Mode?</h3>
+                    <p>Index finger up &<br>
+                    Middle finger down &<br>
+                    Index above ring finger</p>
+                </div>
+            </div>
+            
+            <div class="branch-container">
+                <div class="branch left">
+                    <div class="arrow-branch">No →</div>
+                    <div class="step process">
+                        <div class="step-content">
+                            <h3>Eraser Mode</h3>
+                            <p>Show blue overlay indicator<br>
+                            Clear drawing area<br>
+                            around finger position</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="branch right">
+                    <div class="arrow-branch">Yes →</div>
+                    <div class="step process">
+                        <div class="step-content">
+                            <h3>Draw Line</h3>
+                            <p>Connect previous position<br>
+                            to current position<br>
+                            Green stroke, 3px width</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="arrow">↓</div>
+            
+            <!-- Clear All Check -->
+            <div class="step decision">
+                <div class="step-content">
+                    <h3>Clear All Gesture?</h3>
+                    <p>Pinky finger raised above<br>
+                    middle finger with<br>
+                    Z-depth consideration</p>
+                </div>
+            </div>
+            
+            <div class="branch-container">
+                <div class="branch left">
+                    <div class="arrow-branch">No →</div>
+                    <div class="step process">
+                        <div class="step-content">
+                            <h3>Continue</h3>
+                            <p>Maintain current state</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="branch right">
+                    <div class="arrow-branch">Yes →</div>
+                    <div class="step process">
+                        <div class="step-content">
+                            <h3>Clear All</h3>
+                            <p>Clear entire drawing canvas<br>
+                            Reset drawing state</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="arrow">↓</div>
+            
+            <!-- Render -->
+            <div class="step process">
+                <div class="step-content">
+                    <h3>Render Frame</h3>
+                    <p>Draw video background<br>
+                    Overlay hand landmarks<br>
+                    Show drawing canvas<br>
+                    Display gesture indicators</p>
+                </div>
+            </div>
+            
+            <div class="arrow">↓</div>
+            
+            <!-- Loop Back -->
+            <div class="step end">
+                <div class="step-content">
+                    <h3>Next Frame</h3>
+                    <p>Continue to next video frame</p>
+                </div>
+            </div>
+            
+            <!-- Loop Arrow -->
+            <div class="loop-arrow">
+                <div class="arrow-text">Continuous Loop</div>
+                <div class="curved-arrow">↰</div>
+            </div>
+        </div>
+        
+        <!-- Legend -->
+        <div class="legend">
+            <h3>Legend</h3>
+            <div class="legend-item">
+                <div class="legend-box start"></div>
+                <span>Start/End Process</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-box process"></div>
+                <span>Processing Step</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-box decision"></div>
+                <span>Decision Point</span>
+            </div>
+        </div>
+        
+        <!-- Technical Details -->
+        <div class="tech-details">
+            <h3>Technical Implementation</h3>
+            <div class="detail-grid">
+                <div class="detail-card">
+                    <h4>MediaPipe Hands</h4>
+                    <ul>
+                        <li>21 hand landmarks detection</li>
+                        <li>Real-time processing</li>
+                        <li>Confidence thresholds: 0.5</li>
+                        <li>Single hand tracking</li>
+                    </ul>
+                </div>
+                <div class="detail-card">
+                    <h4>Canvas Layers</h4>
+                    <ul>
+                        <li>Background: Video feed</li>
+                        <li>Drawing: Persistent strokes</li>
+                        <li>Overlay: Gesture indicators</li>
+                        <li>Output: Combined visualization</li>
+                    </ul>
+                </div>
+                <div class="detail-card">
+                    <h4>Gesture Logic</h4>
+                    <ul>
+                        <li>Y-coordinate comparison</li>
+                        <li>Z-depth consideration</li>
+                        <li>Threshold-based detection</li>
+                        <li>State-based rendering</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
